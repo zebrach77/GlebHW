@@ -6,8 +6,11 @@ class Sudoku:
         # print(self.Compute(1, 0))
         t = self.Control()
         if not t:
-            print("CAN'T SOLVE")
+            print("Can't Solve")
             exit(0)
+        # if not t:
+        #     print("CAN'T SOLVE")
+        #     exit(0)
 
     def Check(self, dig_map, line_arr):
         for i in line_arr:
@@ -61,8 +64,8 @@ class Sudoku:
                 break
         if b:
             return True
-        if len(self.bean) > 70:
-            self.bean = []
+        # if len(self.bean) > 70:
+        #     self.bean = []
         for q in range(9):
             if not self.matr[i][q]:
                 if not [i, q] in self.bean:
@@ -93,15 +96,28 @@ class Sudoku:
                         if self.Compute(q, w):
                             if self.Control(q, w):
                                 return True
+        for arr in self.matr:
+            if 0 in arr:
+                b = False
+                break
+        if b:
+            return True
         return False
 
 
-matr = []
-for i in range(9):
-    matr.append([int(j) for j in input().split()])
-sud = Sudoku(matr)
-for i in sud.matr:
-    for j in i:
-        print(j, end=" ")
-    print()
+# matr = []
+# for i in range(9):
+#     matr.append([int(j) for j in input().split()])
+# sud = Sudoku(matr)
+# for i in sud.matr:
+#     for j in i:
+#         print(j, end=" ")
+#     print()
 
+
+class Solution:
+    def solveSudoku(self, board: List[List[str]]) -> None:
+        M = [[int(i) if i != "." else 0 for i in j] for j in board]
+        sud = Sudoku(M)
+        M = sud.matr
+        board = [[str(i) if i != 0 else "." for i in j] for j in M]
